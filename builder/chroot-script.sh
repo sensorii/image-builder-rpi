@@ -194,8 +194,10 @@ apt-get install -y \
   lsb-release
 
 # install cloud-init
-apt-get install -y \
-  cloud-init
+wget -q https://github.com/sensorii/rpi-cloud-init-builder/releases/download/v${CLOUD_INIT_VERSION}/cloud-init_all.deb
+dpkg -i cloud-init_all.deb || /bin/true
+apt-get install -y -f --no-install-recommends
+rm -f cloud-init_all.deb
 
 mkdir -p /var/lib/cloud/seed/nocloud-net
 ln -s /boot/user-data /var/lib/cloud/seed/nocloud-net/user-data
